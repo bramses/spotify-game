@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import dashify from 'dashify';
 import axios from 'axios';
+import id from 'uuid-readable';
+import {v4 as uuid} from 'uuid';
 
 const Room = () => {
   const [content, setContent] = useState({
@@ -14,7 +16,8 @@ const Room = () => {
   }
   const onSubmit = async () => {
     const { title, body } = content;
-    await axios.post('/api/room', { title, slug: dashify(title), body });
+    const shortId = dashify(id.short(uuid()));
+    await axios.post('/api/room', { title, slug: shortId, body });
   }
   return (
     <div>

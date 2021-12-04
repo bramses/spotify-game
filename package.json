@@ -15,7 +15,8 @@
     "next": "12.0.4",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "uuid-readable": "^0.0.2"
   },
   "devDependencies": {
     "eslint": "7.32.0",
