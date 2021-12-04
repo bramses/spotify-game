@@ -1,6 +1,7 @@
 import db from '../../utils/db';
 
 export default async function handler (req, res) {
+  console.log('rooms');
   try {
     const rooms = await db.collection('rooms').orderBy('created').get();
     const roomsData = rooms.docs.map(room => ({

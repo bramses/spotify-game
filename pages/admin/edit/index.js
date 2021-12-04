@@ -7,6 +7,7 @@ const List = () => {
   useEffect(() => {
     const fetchData = async () => {
         const res = await axios.get('/api/rooms');
+        console.log(res.data);
         setRooms(res.data.roomsData);
     }
     fetchData();
