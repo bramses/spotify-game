@@ -1,0 +1,18 @@
+.image {
+  border-radius: 4px;
+}
+.imageshadow {
+  width: 200px;
+  height: 200px;
+  border-radius: 4px;
+  box-shadow: 0px 0px 15px 0px #262625;
+}
+
+.namecontainer {
+  max-width: 300px;
+  text-align: center;
+}
+
+.name {
+  color: #fbc02d;
+}
