@@ -1,4 +1,4 @@
-const CenterContainer = ({ flash = false, children }) => {
+const CenterContainer = ({ flash = false, noBorder = false, children }) => {
   return (
     <div style={{
       display: 'flex',
@@ -6,7 +6,7 @@ const CenterContainer = ({ flash = false, children }) => {
       justifyContent: 'center',
       alignItems: 'center',
       height: '100vh',
-      border: '4px solid #fbc02d',
+      border: noBorder ? '' : '4px solid #fbc02d',
       animation: flash ? '3s infinite alternate flashborder' : '',
     }}>
       {children}
