@@ -1,0 +1,16 @@
+.h1 {
+  color: #82827d;
+}
+
+.image {
+  border-radius: 4px;
+}
+
+.namecontainer {
+  max-width: 300px;
+  text-align: center;
+}
+
+.name {
+  color: #fbc02d;
+}
