@@ -8,6 +8,7 @@ const EditRoom = () => {
     const [content, setContent] = useState({
         title: undefined,
         body: undefined,
+        players: undefined,
     })
 
     useEffect(() => {
@@ -18,7 +19,8 @@ const EditRoom = () => {
                 const { title, body } = res.data;
                 setContent({
                     title,
-                    body
+                    body,
+                    players
                 })
             }
         }
@@ -38,6 +40,7 @@ const EditRoom = () => {
             slug: dashify(title),
             title,
             body,
+            players
         });
     }
 
@@ -47,6 +50,7 @@ const EditRoom = () => {
         router.back();
     }
 
+    // TODO players is broken
     return (
         <div>
             <label htmlFor="title">Title</label>
@@ -62,6 +66,15 @@ const EditRoom = () => {
                 value={content.body}
                 onChange={onChange}
             />
+        
+            <label htmlFor="players">Players</label>
+            <ul>
+                {content.players.map(player => (
+                    <li key={player.id}>
+                        {player.name}
+                    </li>
+                ))}
+            </ul>
             <button
                 type="button"
                 onClick={onSubmit}
