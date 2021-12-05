@@ -4,6 +4,8 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-color: #42423f;
+  color: white;
 }
 
 a {
@@ -13,4 +15,23 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+/* Global Color Palette
+
+"Dark Greyish Yellow"
+Primary Main: #42423f
+Primary Light: #82827d
+Primary Dark:
+
+"Construction Gold Yellow"
+Secondary Main: #fbc02d
+Secondary Light: #fff263
+Secondary Dark: #c49000
+
+*/
+
+@keyframes flashborder {
+  0%   { border-color: #42423f; }
+  100% { border-color: #fbc02d; }
 }

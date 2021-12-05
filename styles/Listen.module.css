@@ -1,0 +1,24 @@
+.h1 {
+  color: #82827d;
+}
+
+.image {
+  border-radius: 4px 4px 4px 4px;
+}
+
+@keyframes twohundredbar {
+  0%   { width: 0px; }
+  100% { width: 200px; }
+}
+
+.timebar {
+  margin-top: 8px;
+  /* justify-content: flex-start; */
+  left: 200px;
+  /* align-self: flex-start; */
+  height: 8px;
+  width: 200px;
+  border-radius: 4px 4px 4px 4px;
+  background-color: #fbc02d;
+  animation: twohundredbar 30s linear;
+}
