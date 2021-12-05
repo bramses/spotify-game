@@ -67,14 +67,14 @@ const EditRoom = () => {
                 onChange={onChange}
             />
         
-            <label htmlFor="players">Players</label>
+            {/* <label htmlFor="players">Players</label>
             <ul>
                 {content.players.map(player => (
                     <li key={player.id}>
                         {player.name}
                     </li>
                 ))}
-            </ul>
+            </ul> */}
             <button
                 type="button"
                 onClick={onSubmit}
