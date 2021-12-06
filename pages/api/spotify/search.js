@@ -11,6 +11,7 @@ export default async function handler(req, res) {
         type: 'track',
         q: query,
         limit: 5,
+        market: 'US',
       },
     });
 

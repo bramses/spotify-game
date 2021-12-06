@@ -36,7 +36,6 @@ const SongPersonReveal = () => {
     }
     return accumulator
   }, {})
-  console.log(votedFors)
 
   return (
     <CenterContainer>
