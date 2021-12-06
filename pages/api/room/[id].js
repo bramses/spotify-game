@@ -24,3 +24,19 @@ export default async function handler (req, res) {
     res.status(400).end();
   }
 }
+
+
+/*
+a room has:
+  - name
+  - slug
+  - players
+  - created
+
+a player has:
+  - name
+  - slug
+  - created
+  - isHost
+  - points
+*/

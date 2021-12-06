@@ -7,7 +7,6 @@ import {v4 as uuid} from 'uuid';
 const Player = () => {
   const [content, setContent] = useState({
     title: undefined,
-    body: undefined,
   })
 
   const onChange = (e) => {
@@ -15,9 +14,10 @@ const Player = () => {
     setContent(prevState => ({ ...prevState, [name]: value }));
   }
   const onSubmit = async () => {
-    const { title, body } = content;
+    const { title, isHost } = content;
+    console.log(content);
     const shortId = dashify(id.short(uuid()));
-    await axios.post('/api/player', { title, slug: shortId });
+    await axios.post('/api/player', { title, slug: shortId, points: 0, isHost });
   }
   return (
     <div>
@@ -28,6 +28,7 @@ const Player = () => {
         value={content.title}
         onChange={onChange}
       />
+      <input type="checkbox" name="isHost" onChange={onChange} />
       <button onClick={onSubmit}>Join Game</button>
     </div>
   );
