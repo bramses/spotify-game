@@ -1,19 +1,10 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 import throttle from 'lodash.throttle'
+import axios from 'axios'
 
 import styles from '../../styles/SongSearch.module.css'
 import CenterContainer from '../components/centercontainer'
 import StyledButton from '../components/styledbutton'
-
-// This all goes away once we have the spotify api integration
-const get5RandomSongNames = () => (
-  fetch('https://baconipsum.com/api/?type=meat-and-filler&sentences=5')
-    .then(_ => _.json())
-    .then(([paragraph]) => {
-      const sentences = paragraph.split('.').filter(s => s)
-      return sentences.map(sentence => sentence.slice(0, 24))
-    })
-)
 
 const SongSearch = () => {
   const [inputValue, setInputValue] = useState('')
@@ -22,10 +13,12 @@ const SongSearch = () => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getAndSetSearchResults = useCallback(throttle((value) => {
-    console.log(`getting search results for ${value}`)
-    get5RandomSongNames().then((results) => {
-      setSearchResults(results)
-    })
+    if (value) {
+      axios.post('/api/spotify/search', { query: value })
+        .then((results) => {
+          setSearchResults(results.data)
+        })
+    }
   }, 500), [])
 
   const handleKeystrokes = (event) => {
@@ -34,33 +27,34 @@ const SongSearch = () => {
     getAndSetSearchResults(value)
   }
 
-  const handleAdd = (song) => {
+  const handleAdd = (songObj) => {
     setInputValue('')
     setSearchResults([])
-    setSelectedSongs([...selectedSongs, song])
+    setSelectedSongs([...selectedSongs, songObj])
   }
 
-  const handleRemove = (song) => {
-    setSelectedSongs(selectedSongs.filter(asong => asong !== song))
+  const handleRemove = (songId) => {
+    setSelectedSongs(selectedSongs.filter(aSongObj => aSongObj.id !== songId))
   }
 
   const handleSubmit = () => {
     console.log('submitting your list of songs to the server!')
-    console.log(selectedSongs)
+    const selectedSongIds = selectedSongs.map(songObj => songObj.id)
+    console.log(selectedSongIds)
   }
 
   return (
     <CenterContainer greyBorder>
       <h1>Enter Your <span style={{ color: "#1DB954" }}>Top 5</span> Songs</h1>
 
-      {selectedSongs.map((song, index) => (
-        <div key={btoa(song)} className={styles.resultcontainer}>
+      {selectedSongs.map((songObj, index) => (
+        <div key={songObj.id} className={styles.resultcontainer}>
           <span className={styles.result}>
-            {index + 1}. {song}<br />
-            <span className={styles.artist}>some artist name</span>
+            {index + 1}. {songObj.name}<br />
+            <span className={styles.artist}>{songObj.artist}</span>
           </span>
-          <button className={styles.rmvbtn} onClick={() => handleRemove(song)}>
-            - remove
+          <button className={styles.rmvbtn} onClick={() => handleRemove(songObj.id)}>
+            -
           </button>
         </div>
       ))}
@@ -81,13 +75,13 @@ const SongSearch = () => {
       )}
 
       {searchResults.map((result) => (
-        <div key={btoa(result)} className={styles.resultcontainer}>
+        <div key={result.id} className={styles.resultcontainer}>
           <span className={styles.result}>
-            {result}<br />
-            <span className={styles.artist}>some artist name</span>
+            {result.name}<br />
+            <span className={styles.artist}>{result.artist}</span>
           </span>
           <button className={styles.addbtn} onClick={() => handleAdd(result)}>
-            + add
+            +
           </button>
         </div>
       ))}

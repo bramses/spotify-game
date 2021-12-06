@@ -44,6 +44,10 @@
 
 .result {
   flex: 1;
+  max-width: calc(300px - 42px);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .artist {
