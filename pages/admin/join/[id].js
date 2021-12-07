@@ -3,35 +3,45 @@ import dashify from 'dashify';
 import axios from 'axios';
 import id from 'uuid-readable';
 import {v4 as uuid} from 'uuid';
+import { useRouter } from 'next/router'
 
-const Player = () => {
+const JoinWithId = () => {
   const [content, setContent] = useState({
-    title: undefined,
+    playerName: undefined,
   })
+  const router = useRouter()
+
+  const routeTo = (href) => {
+    router.push(href)
+  }
 
   const onChange = (e) => {
     const { value, name } = e.target;
     setContent(prevState => ({ ...prevState, [name]: value }));
   }
   const onSubmit = async () => {
-    const { title, isHost } = content;
-    console.log(content);
+    const { playerName } = content;
     const shortId = dashify(id.short(uuid()));
-    await axios.post('/api/player', { title, slug: shortId, score: 0, isHost });
+    
+    if (!playerName) {
+      playerName = shortId;
+    }
+
+    await axios.post('/api/add-player-to-room', { playerName, slug: shortId, roomId: router.asPath.split('/')[3] });
+    // routeTo(`/rooms/${router.asPath.split('/')[3]}`);
   }
   return (
     <div>
-      <label htmlFor="title">Player Name</label>
+      <label htmlFor="playerName">Name</label>
       <input
         type="text"
-        name="title"
-        value={content.title}
+        name="playerName"
+        value={content.playerName}
         onChange={onChange}
       />
-      <input type="checkbox" name="isHost" onChange={onChange} />
       <button onClick={onSubmit}>Join Game</button>
     </div>
   );
 };
 
-export default Player;
+export default JoinWithId;
